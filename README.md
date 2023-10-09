@@ -61,8 +61,8 @@ The project aims to create a copyright protection system for digital content (ph
 ## Frameworks and Technologies
 
 - Backend Framework: Django (Python)
-- Frontend Framework: [Your choice]
-- Database: [Your choice]
+- Frontend Framework: Flutter
+- Database: 
 - Encryption: AES (Advanced Encryption Standard)
 - Content Analysis: [Specify the image and audio analysis libraries or tools]
 
