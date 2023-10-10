@@ -20,25 +20,37 @@ The project aims to create a copyright protection system for digital content (ph
    - Personal content (photos, videos, audio) is encrypted using AES encryption.
    - Authorized users can decrypt content for viewing or download.
 
-4. Watermarking
-   - Personal content can be watermarked with copyright information.
-   - Watermarking can be visible or invisible, depending on user preference.
+4. Perceptual Hashing
+   - Implement perceptual hashing for detecting visually similar or near-duplicate content across images, videos, and audio.
+   - Capture visual or auditory characteristics of content to generate perceptual hashes.
+   - Use perceptual hashing to identify similarities in uploaded content with existing content.
+   - Visually or auditorily similar content is detected based on perceptual hash matches.
 
 5. Content Analysis
    - Implement image and audio analysis for identifying personal content.
    - Detection of personal content during uploads and downloads.
 
-6. Reporting and Moderation
+6. Audio Watermarking
+   - Embed ownership information and copyright data within audio files.
+   - Use audio watermarking to assert ownership and copyright.
+   - Detect unauthorized sharing of audio content through the presence of watermarks.
+
+7. Audio Fingerprinting (Dejavu)
+   - Implement audio fingerprinting using the Dejavu library for audio recognition.
+   - Detect copyrighted audio content and unauthorized uploads.
+   
+8. Reporting and Moderation
    - Users can report content that violates platform policies.
    - Content moderation to review reported content and take action.
 
-7. Image Hashing
+9. Image Hashing
    - Generate image hashes for duplicate detection.
    - Detect identical copies of images based on hash values.
 
-8. Secure Storage
-   - Ensure personal content is stored securely.
-   - Encryption keys are managed securely.
+10. Secure Storage
+    - Ensure personal content is stored securely.
+    - Encryption keys are managed securely.
+
 
 ### Non-Functional Requirements
 
@@ -62,7 +74,7 @@ The project aims to create a copyright protection system for digital content (ph
 
 - Backend Framework: Django (Python)
 - Frontend Framework: Flutter
-- Database: 
+- Database: PostgreSQL
 - Encryption: AES (Advanced Encryption Standard)
 - Content Analysis: [Specify the image and audio analysis libraries or tools]
 
@@ -85,11 +97,6 @@ The project aims to create a copyright protection system for digital content (ph
 - Reported content is reviewed by content moderators.
 - Action is taken to address violations, including content removal and user warnings.
 
-## Image Hashing
-
-- Image hashing techniques are employed for duplicate detection.
-- Hash values are generated for images and used to compare uploaded content with existing content.
-- Identical copies of images are detected based on hash matches.
 
 ## Secure Storage
 
@@ -98,5 +105,3 @@ The project aims to create a copyright protection system for digital content (ph
 - Regular security audits and updates to ensure data security.
 
 ---
-
-This documentation provides an overview of the project's idea, requirements, technologies, and key features. Detailed design and implementation plans are beyond the scope of this document and will require further analysis and development.
