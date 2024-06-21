@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import dj_datbase_url
+# import dj_database_url
 
 
 AUTH_USER_MODEL = "app.User"
