@@ -11,10 +11,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv(".env")
 SECRET_KEY = os.environ.get("SECRET_KEY", None)
-DEBUG = os.environ.get("DEBUG", False)
+# DEBUG = os.environ.get("DEBUG", False)
+DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = list(str(os.environ.get("ALLOWED_HOSTS")).split(", "))
+
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = list(str(os.environ.get("ALLOWED_HOSTS")).split(", "))
 
 
 # Application definition
