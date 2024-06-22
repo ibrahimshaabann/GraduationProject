@@ -63,7 +63,18 @@ class RetrieveUserPosts(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
         user_posts = Post.objects.filter(user=request.user.id)
-        print(user_posts)
+        serializer = self.serializer_class(user_posts, many=True)
+        return Response({ "success": True, "posts": serializer.data })
+    
+
+class GetAllPosts(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request, *args, **kwargs):
+        user_posts = Post.objects.all()
         serializer = self.serializer_class(user_posts, many=True)
         return Response({ "success": True, "posts": serializer.data })
 
