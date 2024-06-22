@@ -2,9 +2,10 @@ from rest_framework import serializers
 from app.models import Post, PostComment, PostLike, User, UserFollow
 
 class UserSerializer(serializers.ModelSerializer):
+   # groups = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all(), many=True, required=False)
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['email', 'first_name', 'last_name', 'username', 'password','bio' ,'image_url']
 
     email = serializers.EmailField()
     first_name = serializers.CharField()
@@ -12,10 +13,11 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField()
     password = serializers.CharField()
     bio = serializers.CharField()
+    image_url = serializers.ImageField(required=False)
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)
-
+        
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
@@ -24,11 +26,12 @@ class UserLoginSerializer(serializers.Serializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = "__all__"
+        fields =  fields = ['title', 'description', 'user', 'image_url']
 
     title = serializers.CharField()
     description = serializers.CharField()
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    image_url = serializers.ImageField(required=False)
 
     def update(self, instance, validated_data):
         print(validated_data)

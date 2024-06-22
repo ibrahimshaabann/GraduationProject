@@ -6,12 +6,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from app.serializer import UserLoginSerializer, UserSerializer
 from app.models import User
+from rest_framework.parsers import MultiPartParser, FormParser
 
+from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 
 class CreateUser(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
 class LoginUserView(APIView):
 

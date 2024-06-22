@@ -1,22 +1,24 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-# import dj_database_url
-
-
 AUTH_USER_MODEL = "app.User"
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-load_dotenv(".env")
-SECRET_KEY = os.environ.get("SECRET_KEY", None)
-# DEBUG = os.environ.get("DEBUG", False)
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-nj6(3h&c7=r=b1_-pu^#111jw)h)s+co_e(hctu3!rsima($&&'
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = list(str(os.environ.get("ALLOWED_HOSTS")).split(", "))
 
 
 # Application definition
@@ -29,17 +31,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'app',
-    'drf_yasg',
-    'rest_framework.authtoken'
 ]
-
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'Basic': {
-            'type': 'basic'
-        }
-    }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 MIDDLEWARE = [
@@ -70,63 +68,17 @@ TEMPLATES = [
     },
 ]
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "DATABASE_URL": str(os.environ.get("DATABASE_URL")),
-        "DATABASE_PRIVATE_URL": str(os.environ.get("DATABASE_PRIVATE_URL")),
-        "NAME": str(os.environ.get("DATABASE_NAME")),
-        "USER": str(os.environ.get("DATABASE_USER")),
-        "PASSWORD": str(os.environ.get("DATABASE_PASSWORD")),
-        "HOST": str(os.environ.get("DATABASE_HOST")),
-        "PORT": int(os.environ.get("DATABASE_PORT")),
-
+        "NAME": os.environ.get("DATABASE_NAME"),
+        "USER": os.environ.get("DATABASE_USER"),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
+        "HOST": os.environ.get("DATABASE_HOST"),
+        "PORT": os.environ.get("DATABASE_PORT", 5432),
     }
 }
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://*.up.railway.app",
-    "http://localhost:8000",
-]
-
-CORS_ALLOW_ALL_ORIGINS = True
-
-CORS_ALLOW_ORIGINS = [
-    "http://localhost:8083",
-]
-
-CORS_ALLOWED_ORIGINS = [
-    'https://*-production.up.railway.app',
-]
-
-
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-]
-
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "authorization",
-    "content-type",
-    'api_key',          
-    'Authorization',
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-    "ngrok-skip-browser-warning"
-    'accept-encoding',
-    'dnt',
-    'origin',
-]
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
 
 WSGI_APPLICATION = 'instagram.wsgi.application'
 
@@ -166,12 +118,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-# STATICFILESDIR = [
-#     os.path.join(BASE_DIR,"static"),
-# ]
+
+# settings.py
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+>>>>>>> Stashed changes
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
