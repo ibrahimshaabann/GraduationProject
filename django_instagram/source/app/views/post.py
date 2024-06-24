@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from app.models import Post, PostComment, PostLike, User, UserFollow
 from app.serializer import CommentSerializer, PostLikeSerializer, PostSerializer, UserFollowSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 class CreatePost(generics.CreateAPIView):
     authentication_classes = [TokenAuthentication]
@@ -15,7 +15,6 @@ class CreatePost(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     parser_classes = (MultiPartParser, FormParser)
-
 class RetrievePost(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

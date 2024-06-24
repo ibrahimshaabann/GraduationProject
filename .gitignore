@@ -61,6 +61,12 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# Ignore static and media files directories
+*staticfiles/
+*media/
+/*staticfiles
+/*media
+
 # Flask stuff:
 instance/
 .webassets-cache
