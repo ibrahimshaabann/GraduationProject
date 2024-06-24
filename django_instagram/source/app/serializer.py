@@ -40,7 +40,8 @@ class PostSerializer(serializers.ModelSerializer):
         
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        BASE_URL = 'https://graduationproject-production-a5f5.up.railway.app'  
+        print(instance.image_url)
+        BASE_URL = 'https://graduationproject-production-a5f5.up.railway.app/media/'  
         representation['image_url'] = BASE_URL + str(instance.image_url)
         return representation
 
