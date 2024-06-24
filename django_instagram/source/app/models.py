@@ -31,6 +31,8 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image_hash = models.CharField(max_length=255, blank=True, null=True)
+
 
 class PostLike(models.Model):
     post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
