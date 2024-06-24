@@ -37,6 +37,12 @@ class PostSerializer(serializers.ModelSerializer):
         print(validated_data)
         if instance.user.id == validated_data["user"].id:
             return super().update(instance, validated_data)
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        BASE_URL = 'https://graduationproject-production-a5f5.up.railway.app'  
+        representation['image_url'] = BASE_URL + str(instance.image_url)
+        return representation
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
