@@ -15,9 +15,12 @@ class CreatePost(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     parser_classes = (MultiPartParser, FormParser)
+
+
 class RetrievePost(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
 
 class UpdatePost(generics.UpdateAPIView):
     authentication_classes = [TokenAuthentication]
@@ -112,6 +115,7 @@ class LikePost(APIView):
         except ObjectDoesNotExist:
             return Response({ "success": False, "message": "post does not exist" })
     
+
 class CommentPost(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = CommentSerializer

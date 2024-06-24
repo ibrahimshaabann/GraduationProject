@@ -13,6 +13,7 @@ class CreateUser(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+    parser_classes = (MultiPartParser, FormParser)
 
 class LoginUserView(APIView):
     permission_classes = [AllowAny]
