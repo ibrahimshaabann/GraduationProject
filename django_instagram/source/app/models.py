@@ -11,6 +11,8 @@ class User(AbstractUser):
     username = models.CharField(unique=True, max_length=16)
     bio = models.CharField(max_length=164, null=True)
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image_hash = models.CharField(max_length=255, blank=True, null=True)
+
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
