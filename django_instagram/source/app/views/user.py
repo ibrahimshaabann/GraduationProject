@@ -8,6 +8,8 @@ from app.serializer import UserLoginSerializer, UserSerializer
 from app.models import User
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+
 
 class CreateUser(generics.CreateAPIView):
     queryset = User.objects.all()
