@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import Post, PostComment, PostLike, User, UserFollow
+from app.models import Post, PostComment, PostLike, User, UserFollow , Notification
 
 class UserSerializer(serializers.ModelSerializer):
    # groups = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all(), many=True, required=False)
@@ -17,7 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)
-        
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__'
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
