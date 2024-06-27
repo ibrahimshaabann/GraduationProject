@@ -11,8 +11,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv(".env")
 SECRET_KEY='f^i&m(w0u=wfn!6h6l8i8f*^wvl23-5o96tf@z^6ykx%$1z3w!'
-# DEBUG = os.environ.get("DEBUG", False)
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", False)
+# DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
