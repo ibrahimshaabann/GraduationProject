@@ -91,8 +91,8 @@ REST_FRAMEWORK = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        # "DATABASE_URL": str(os.environ.get("DATABASE_URL")),
-        # "DATABASE_PRIVATE_URL": str(os.environ.get("DATABASE_PRIVATE_URL")),
+        "DATABASE_URL": str(os.environ.get("DATABASE_URL")),
+        "DATABASE_PRIVATE_URL": str(os.environ.get("DATABASE_PRIVATE_URL")),
         "NAME": str(os.environ.get("DATABASE_NAME")),
         "USER": str(os.environ.get("DATABASE_USER")),
         "PASSWORD": str(os.environ.get("DATABASE_PASSWORD")),
@@ -194,8 +194,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.environ.get("RAILWAY_VOLUME_MOUNT_PATH")
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.environ.get("RAILWAY_VOLUME_MOUNT_PATH")
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
