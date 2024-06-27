@@ -4,10 +4,14 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from app.models import Post, PostComment, PostLike, User, UserFollow
-from app.serializer import CommentSerializer, PostLikeSerializer, PostSerializer, UserFollowSerializer
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from ..serializer import PostSerializer
+from ..utils import bktree
+from rest_framework import generics, status
+import dhash
+from PIL import Image
+from app.models import Post, PostComment, PostLike, User, UserFollow ,Post , Notification
+from app.serializer import CommentSerializer, PostLikeSerializer, PostSerializer, UserFollowSerializer , NotificationSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class CreatePost(generics.CreateAPIView):
     authentication_classes = [TokenAuthentication]
@@ -15,7 +19,8 @@ class CreatePost(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     parser_classes = (MultiPartParser, FormParser)
-
+   
+    
 
 class RetrievePost(generics.RetrieveAPIView):
     queryset = Post.objects.all()
@@ -56,7 +61,39 @@ class DestroyPost(generics.DestroyAPIView):
                 return Response({ "success": False, "message": "not enough permissions" })
         except ObjectDoesNotExist:
             return Response({ "success": False, "message": "post does not exist" })
+        
 
+
+class ListNotifications(generics.ListAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Notification.objects.filter(user=self.request.user, seen=False)
+
+class HandleNotification(generics.UpdateAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+   
+    def put(self, request, *args, **kwargs):
+        notification = self.get_object()
+        action_taken = request.data.get('action_taken')
+
+        if action_taken == 'delete':
+      
+            post_to_delete = notification.post
+            notification.delete()  
+            post_to_delete.delete()
+            
+        elif action_taken == 'keep':
+
+            notification.delete()
+
+        return Response({"message": "Notification handled successfully"}, status=status.HTTP_200_OK)
 
 class RetrieveUserPosts(generics.ListAPIView):
     queryset = Post.objects.all()

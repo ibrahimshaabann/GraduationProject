@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from app.manager import UserManager
-
+from PIL import Image
+import dhash
 class User(AbstractUser):
     def upload_to(instance, filename):
      return 'images/{filename}'.format(filename=filename)
@@ -34,7 +35,20 @@ class Post(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     image_hash = models.CharField(max_length=255, blank=True, null=True)
+   
+   
 
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    seen = models.BooleanField(default=False)
+    action_taken = models.CharField(max_length=10, null=True, blank=True)  
+
+    def __str__(self):
+        return f"{self.user.username} - {self.post}"
 
 class PostLike(models.Model):
     post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)

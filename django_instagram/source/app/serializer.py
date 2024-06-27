@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import Post, PostComment, PostLike, User, UserFollow
+from app.models import Post, PostComment, PostLike, User, UserFollow , Notification
 
 class UserSerializer(serializers.ModelSerializer):
    # groups = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all(), many=True, required=False)
@@ -17,7 +17,18 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)
-        
+
+class NotificationSerializer(serializers.ModelSerializer):
+    """
+    This setup ensures that when you pass user data to NotificationSerializer, 
+    it expects a primary key value (pk) that corresponds to an existing User instance.
+    """
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    class Meta:
+        model = Notification
+        fields = '__all__'
+
+
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
@@ -26,8 +37,12 @@ class UserLoginSerializer(serializers.Serializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields =  fields = ['title', 'description', 'user', 'image_url']
-
+        fields = '__all__'
+    def create(self, validated_data):
+        # Handle any special creation logic here
+        return Post.objects.create(**validated_data)
+    
+    
     title = serializers.CharField()
     description = serializers.CharField()
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
