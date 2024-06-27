@@ -9,6 +9,8 @@ from app.models import User
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from django.shortcuts import get_object_or_404
+
 
 
 class CreateUser(generics.CreateAPIView):
@@ -41,6 +43,16 @@ class LoginUserView(APIView):
 class RetrieveUser(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class RetrieveCurrentUserProfile(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return get_object_or_404(User, id=self.request.user.id)
+
 
 class UpdateUser(APIView):
     queryset = User.objects.all()

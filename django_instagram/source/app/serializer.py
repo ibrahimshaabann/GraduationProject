@@ -5,7 +5,7 @@ class UserSerializer(serializers.ModelSerializer):
    # groups = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all(), many=True, required=False)
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'username', 'password','bio' ,'image_url']
+        fields = ['id', 'email', 'first_name', 'last_name', 'username', 'password','bio' ,'image_url']
 
     email = serializers.EmailField()
     first_name = serializers.CharField()
