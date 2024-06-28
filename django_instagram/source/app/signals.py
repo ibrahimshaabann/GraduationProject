@@ -13,7 +13,8 @@ def post_save_post(sender, instance, created, **kwargs):
             img = Image.open(instance.image_url)
             row, col = dhash.dhash_row_col(img)
             image_hash = dhash.format_hex(row, col)
-            
+            instance.image_hash = image_hash
+            instance.save()
             # Check for similar images
             similar_posts = bktree.query(image_hash, tolerance=3)
           
