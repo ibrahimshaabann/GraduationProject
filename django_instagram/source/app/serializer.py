@@ -37,20 +37,20 @@ class UserLoginSerializer(serializers.Serializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True, default=serializers.CurrentUserDefault())
-    
     class Meta:
         model = Post
         fields = '__all__'
+    def create(self, validated_data):
+        # Handle any special creation logic here
+        return Post.objects.create(**validated_data)
     
     title = serializers.CharField()
     description = serializers.CharField()
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     image_url = serializers.ImageField(required=False)
-    
-    def create(self, validated_data):
-        return Post.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
+        print(validated_data)
         if instance.user.id == validated_data["user"].id:
             return super().update(instance, validated_data)
         
@@ -58,8 +58,8 @@ class PostSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         BASE_URL = 'https://graduationproject-production-a5f5.up.railway.app/media/'  
         representation['image_url'] = BASE_URL + str(instance.image_url)
+        representation['user'] = UserSerializer(instance.user).data
         return representation
-
 
 
 class CommentSerializer(serializers.ModelSerializer):
