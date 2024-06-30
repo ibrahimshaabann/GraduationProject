@@ -37,7 +37,7 @@ class UserLoginSerializer(serializers.Serializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True, default=serializers.CurrentUserDefault())
     
     class Meta:
         model = Post
