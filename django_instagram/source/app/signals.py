@@ -9,6 +9,7 @@ from .utils import bktree
 @receiver(post_save, sender=Post)
 def post_save_post(sender, instance, created, **kwargs):
     if created and instance.image_url:
+        notification_serializer = None
         try:
             img = Image.open(instance.image_url)
             row, col = dhash.dhash_row_col(img)
@@ -18,10 +19,9 @@ def post_save_post(sender, instance, created, **kwargs):
             # Check for similar images
             similar_posts = bktree.query(image_hash, tolerance=3)
             print("#"*30)
-            print(f"\n\n\similar posts value\n\n\n")
+            print(f"\n\n\similar posts value:{similar_posts}\n\n\n")
             print("#"*30)
 
-            notification_serializer = None
           
             if similar_posts:
                 print("*"*30)
