@@ -7,6 +7,7 @@ class BKTreeNode:
         self.post_id = post_id
         self.children = {}
 
+
 class BKTree:
     def __init__(self):
         self.root = None
