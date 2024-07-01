@@ -9,7 +9,6 @@ from .utils import bktree
 @receiver(post_save, sender=Post)
 def post_save_post(sender, instance, created, **kwargs):
     if created and instance.image_url:
-        notification_serializer = None
         try:
             img = Image.open(instance.image_url)
             row, col = dhash.dhash_row_col(img)
@@ -35,7 +34,7 @@ def post_save_post(sender, instance, created, **kwargs):
                     'action_taken': None  
                 }
 
-                notification_serializer = NotificationSerializer(data=notification_data)
+            notification_serializer = NotificationSerializer(data=notification_data)
 
             if notification_serializer.is_valid():
                     try:
