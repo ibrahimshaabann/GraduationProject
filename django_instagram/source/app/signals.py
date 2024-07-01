@@ -17,6 +17,11 @@ def post_save_post(sender, instance, created, **kwargs):
             instance.save()
             # Check for similar images
             similar_posts = bktree.query(image_hash, tolerance=3)
+            print("#"*30)
+            print(f"\n\n\similar posts value\n\n\n")
+            print("#"*30)
+
+            notification_serializer = None
           
             if similar_posts:
                 print("*"*30)
