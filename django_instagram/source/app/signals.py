@@ -52,7 +52,6 @@ def post_save_post(sender, instance, created, **kwargs):
             instance.image_hash = image_hash
             instance.save()
             bktree.insert(instance.image_hash, instance.id)
-            
+
         except Exception as e:
-           
             print(f"Error processing image: {e}")
