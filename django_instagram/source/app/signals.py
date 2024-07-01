@@ -19,7 +19,9 @@ def post_save_post(sender, instance, created, **kwargs):
             similar_posts = bktree.query(image_hash, tolerance=3)
           
             if similar_posts:
-              
+                print("*"*30)
+                print(f"\n\n\nsimilarrrrrrrrrrrrrrr!!!!\n\n\n")
+                print("*"*30)
                 original_post_id = similar_posts[0][0]
                 original_post = Post.objects.get(id=original_post_id)
                 notification_data = {

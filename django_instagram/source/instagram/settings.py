@@ -18,7 +18,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = list(str(os.environ.get("ALLOWED_HOSTS")).split(", "))
 
-
 # Application definition
 
 INSTALLED_APPS = [
